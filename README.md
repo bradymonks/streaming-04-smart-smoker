@@ -10,4 +10,6 @@ I already had multiple queues set up in that script, so it was simple enough to 
 
 I wanted to put together some consumer scripts right now just to make sure the messages were being sent successfully but haven't configure them for Module 6's assignment yet. Once again I used my bonus consumers from Module 4 as basis for these. I just had to remove the code regarding writing the messages to a new .csv file and rename the queues to match up with the producer script. 
 
-
+# Screenshots of Programs Running
+![VS Code and RabbitMQ](vsCodeRabbitMQ.png)
+![Multiple Consumers](AnacondaTerminals.png)
