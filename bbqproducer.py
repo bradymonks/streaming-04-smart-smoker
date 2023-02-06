@@ -2,8 +2,9 @@
 Brady Monks
 2/3/23
 
-    This program sends a message to a queue on the RabbitMQ server.
-    Make tasks harder/longer-running by adding dots at the end of the message.
+    This program sends the temperature of each object (smoker, food A, food B) 
+    to separate queues on the RabbitMQ server.
+
 
     
 
@@ -19,7 +20,7 @@ import time
 
 def open_rabbitmq_admin_site():
     """Define variable to determine whether to open RabbitMQ site"""
-    show_offer = False
+    show_offer = TRUE
     """Offer to open the RabbitMQ Admin website if show_offer = True"""
     if show_offer == True:
         ans = input("Would you like to monitor RabbitMQ queues? y or n ")
@@ -53,7 +54,7 @@ def send_message(host: str, queue_name: str, message: str):
         # every message passes through an exchange
         ch.basic_publish(exchange="", routing_key=queue_name, body=message)
         # print a message to the console for the user
-        print(f" [x] Sent {message}")
+        print(f" [x] Sent {message} to {queue_name}")
     except pika.exceptions.AMQPConnectionError as e:
         print(f"Error: Connection to RabbitMQ server failed: {e}")
         sys.exit(1)
@@ -64,8 +65,8 @@ def send_message(host: str, queue_name: str, message: str):
 if __name__ == "__main__":
     # open the RabbitMQ Admin site
     open_rabbitmq_admin_site()
-    # read from a file to get some fake data
-    with open("tasks1.csv", "r") as input_file:
+    # read from a file to get some temperature data
+    with open("smoker-temps.csv", "r") as input_file:
         tasks = (input_file)
 
         # create a csv reader for our comma delimited data
@@ -87,4 +88,4 @@ if __name__ == "__main__":
             send_message("localhost", "02-food-B", column4)
 
             # sleep for a few seconds
-            time.sleep(30)
+            time.sleep(3)
